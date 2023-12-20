@@ -1,0 +1,17 @@
+{
+  "name": "s2a1-el-juego-de-boliche-s2a2-el-juego-de-boliche-bcdic23-team05",
+  "version": "1.0.0",
+  "description": "![BrightCoders Logo](img/logo.png)",
+  "main": "script.js",
+  "scripts": {
+    "start":"node script.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0"
+  }
+}

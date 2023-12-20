@@ -1,70 +1,102 @@
 class Frames{
   constructor() {
+    this.tiro1 = [];
+    this.tiro2 = [];
+    this.puntuacionGlobal = [];
+    this.primerTiro();
+    this.segundoTiro();
+    this.puntuacionTotal();
+    this.frames();
     
+    this.tiroExtra1 = 5;
+    this.tiroExtra2 = 2;
   }
 
   primerTiro() {
-    let arr1 = [];
-    for(let i = 0; i < 10; i++){
-        let tiro1 = Math.round(Math.random() * 10);
-        arr1.push(tiro1)
+    for(let i = 0; i < 10; i++) {
+        let numero = Math.round(Math.random() * 10);
+        this.tiro1.push(numero);
     }
-    return arr1;
   }
 
   segundoTiro() {// numero aleatorio para el segundo tiro
-    let arr2 = [];
-    let tiro1 = this.primerTiro()
-    for(let i = 0; i < 10; i++){
-        let tiro2 = Math.round(Math.random() * (10 - tiro1[i]));
-        arr2.push(tiro2)
+    for(let i = 0; i < 10; i++) {
+        let numero = Math.round(Math.random() * (10 - this.tiro1[i]));
+        this.tiro2.push(numero);
     }
-    return arr2;
   }
   
   puntuacionTotal() {
-    let tiro1 = this.primerTiro();//Chuza o Strike suma los dos tiros siguientes, Spare suma únicamente el siguiente tiro
-    let tiro2 = this.segundoTiro();
-    let puntuacionTotal = [];
-    
-
+    let puntuacion = 0;
     for(let i = 0; i < 10; i++){
-        if(i < 10 ) {
-            if(tiro1[i] === 10 ) { //chuza
-              let puntuacion = 10 + tiro1[i +1] + tiro2[i +1];
-                puntuacionTotal.push(puntuacion)
-            }else if(tiro1[i] + tiro2[i] ===10) { //spare
-    
-                puntuacionTotal.push( 10 + tiro1[i + 1])  //!!
-            
-            }else if(tiro1[i] + tiro2[i] < 10){ //tiros menores a 10
-                puntuacionTotal.push( tiro1[i] + tiro2[i])
-            }
-        } else {
+      if(i < 9){
+        
+        if(this.tiro1[i] === 10 ) { //chuza
+          puntuacion +=  10 + this.tiro1[i +1] + this.tiro2[i +1];
+          this.puntuacionGlobal.push(puntuacion);
 
+        }else if(this.tiro1[i] + this.tiro2[i] === 10) { //spare
+          puntuacion +=  10 + this.tiro1[i +1];
+          this.puntuacionGlobal.push(puntuacion); //!!
+        
+        }else if(this.tiro1[i] + this.tiro2[i] < 10){ //tiros menores a 10
+        
+          puntuacion +=  this.tiro1[i] + this.tiro2[i];
+          this.puntuacionGlobal.push(puntuacion)
         }
-      
+      }else {
+        console.log(1)
+        if(this.tiro1[i] === 10 ) { //chuza
+          console.log(tiroExtra1)
+          //let numero1 = Math.round(Math.random() * 10);
+          //let numero2 = Math.round(Math.random() * (10 - this.tiro1[i]));
+          //this.tiro1.push(this.tiroExtra1);
+          //this.tiro2.push(this.tiroExtra2);
+         // puntuacion +=  10 + this.tiro1[i +1] + this.tiro2[i +1];
+         // this.puntuacionGlobal.push(puntuacion);
+        }else if(this.tiro1[i] + this.tiro2[i] === 10){
+          console.log(this.tiroExtra1)
+          console.log(this.tiroExtra2)
+          //let numero1 = Math.round(Math.random() * 10);
+          //this.tiro1.push(this.tiroExtra1);
+          //puntuacion +=  10 + this.tiro1[i +1];
+          //this.puntuacionGlobal.push(puntuacion);
+        }
+      }
     }
-    console.log("puntuacion",puntuacion)
-    return puntuacion
-  
   }
 
   frames(){
-      let tiro1 = this.primerTiro()
-      let tiro2 = this.segundoTiro()
-      let puntos = this.puntuacionTotal()
-      for(let i = 0; i < 10; i++){
+      for(let i = 0; i < 10; i++) {
+        if(i < 9){
           console.log(' _________')
-          console.log(`|  ${tiro1[i]} | ${tiro2[i]}  |`)
-          console.log('|____|____|')
-          console.log('|         |')
-          console.log(`|__${puntos[i]}__|`)
+          console.log(`|  ${this.tiro1[i]} | ${this.tiro2[i]}  |`);
+          console.log('|____|____|');
+          console.log('|         |');
+          console.log(`| ${this.puntuacionGlobal[i]} |`)
+          //this.puntuacionGlobal[i] <= 9 ? console.log(`|    ${this.puntuacionGlobal[i]}    |`) : console.log(`|    ${this.puntuacionGlobal[i]}   |`);
+          console.log('|_________|');
+        }
+        else {
+          console.log(' _________')
+          console.log(`|  ${this.tiro1[i]} | ${this.tiro2[i]}  |  ${this.tiroExtra1}`);
+          console.log('|____|____|');
+          console.log('|         |');
+          console.log(`| ${this.puntuacionGlobal[i]} |`)
+          //this.puntuacionGlobal[i] <= 9 ? console.log(`|    ${this.puntuacionGlobal[i]}    |`) : console.log(`|    ${this.puntuacionGlobal[i]}   |`);
+          console.log('|_________|');
+        }
+          
       }
+
+
 }
 
 }
 
 const frame = new Frames();
+console.log(frame.tiro1);
+console.log(frame.tiro2);
+console.log(frame.puntuacionGlobal);
 
-console.log(frame.frames());
+module.exports = Frames
