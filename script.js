@@ -47,7 +47,7 @@ class Frames{
       }else {
         console.log(1)
         if(this.tiro1[i] === 10 ) { //chuza
-          console.log(tiroExtra1)
+          console.log(this.tiroExtra1)
           //let numero1 = Math.round(Math.random() * 10);
           //let numero2 = Math.round(Math.random() * (10 - this.tiro1[i]));
           //this.tiro1.push(this.tiroExtra1);
