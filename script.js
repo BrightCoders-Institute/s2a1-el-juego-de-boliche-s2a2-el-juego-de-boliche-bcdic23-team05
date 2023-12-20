@@ -7,9 +7,6 @@ class Frames{
     this.segundoTiro();
     this.puntuacionTotal();
     this.frames();
-    
-    this.tiroExtra1 = 5;
-    this.tiroExtra2 = 2;
   }
 
   primerTiro() {
@@ -29,7 +26,7 @@ class Frames{
   puntuacionTotal() {
     let puntuacion = 0;
     for(let i = 0; i < 10; i++){
-      if(i < 9){
+      if(i <=8 ){
         
         if(this.tiro1[i] === 10 ) { //chuza
           puntuacion +=  10 + this.tiro1[i +1] + this.tiro2[i +1];
@@ -40,27 +37,27 @@ class Frames{
           this.puntuacionGlobal.push(puntuacion); //!!
         
         }else if(this.tiro1[i] + this.tiro2[i] < 10){ //tiros menores a 10
-        
           puntuacion +=  this.tiro1[i] + this.tiro2[i];
           this.puntuacionGlobal.push(puntuacion)
         }
-      }else {
-        console.log(1)
+      } else { //evalúa el último frame, ya que otorga tiros adicionales si se hace una chuza o un spare.
         if(this.tiro1[i] === 10 ) { //chuza
-          console.log(this.tiroExtra1)
-          //let numero1 = Math.round(Math.random() * 10);
-          //let numero2 = Math.round(Math.random() * (10 - this.tiro1[i]));
-          //this.tiro1.push(this.tiroExtra1);
-          //this.tiro2.push(this.tiroExtra2);
-         // puntuacion +=  10 + this.tiro1[i +1] + this.tiro2[i +1];
-         // this.puntuacionGlobal.push(puntuacion);
-        }else if(this.tiro1[i] + this.tiro2[i] === 10){
-          console.log(this.tiroExtra1)
-          console.log(this.tiroExtra2)
-          //let numero1 = Math.round(Math.random() * 10);
-          //this.tiro1.push(this.tiroExtra1);
-          //puntuacion +=  10 + this.tiro1[i +1];
-          //this.puntuacionGlobal.push(puntuacion);
+          let numero1 = Math.round(Math.random() * 10);
+          let numero2 = Math.round(Math.random() * (10 - numero1));
+          this.tiro1.push(numero1);
+          this.tiro2.push(numero2);
+          puntuacion +=  10 + this.tiro1[i +1] + this.tiro2[i +1];
+          this.puntuacionGlobal.push(puntuacion);
+          
+        }else if(this.tiro1[i] + this.tiro2[i] === 10){//spare
+          let numero1 = Math.round(Math.random() * 10);
+          this.tiro1.push(numero1);
+          puntuacion +=  10 + this.tiro1[i +1];
+          this.puntuacionGlobal.push(puntuacion);
+          
+        }else if(this.tiro1[i] + this.tiro2[i] < 10){
+          puntuacion +=  this.tiro1[i] + this.tiro2[i];
+          this.puntuacionGlobal.push(puntuacion);
         }
       }
     }
@@ -68,24 +65,42 @@ class Frames{
 
   frames(){
       for(let i = 0; i < 10; i++) {
-        if(i < 9){
+        if(i <= 8){
           console.log(' _________')
           console.log(`|  ${this.tiro1[i]} | ${this.tiro2[i]}  |`);
           console.log('|____|____|');
           console.log('|         |');
-          console.log(`| ${this.puntuacionGlobal[i]} |`)
-          //this.puntuacionGlobal[i] <= 9 ? console.log(`|    ${this.puntuacionGlobal[i]}    |`) : console.log(`|    ${this.puntuacionGlobal[i]}   |`);
+          console.log(`|   ${this.puntuacionGlobal[i]}    |`)
           console.log('|_________|');
+          console.log(`Frame: ${i + 1}`);
         }
-        else {
+        else if(this.tiro1[i] === 10){ //Chuza en el último frame
+          console.log(' ______________')
+          console.log(`|  ${this.tiro1[i]} | ${this.tiro2[i + 1]} |  ${this.tiro1[i + 1]} |`);
+          console.log('|_____|________|');
+          console.log('|              |');
+          console.log(`|       ${this.puntuacionGlobal[i]}     |`)
+          console.log('|______________|');
+          console.log(`Frame: ${i + 1}`);
+        }
+        else if(this.tiro1[i] + this.tiro2[i] === 10){//Spare en el último frame
+          console.log(' ______________')
+          console.log(`|  ${this.tiro1[i]}  | ${this.tiro2[i]}  | ${this.tiro1[i + 1]} |`);
+          console.log('|_____|________|');
+          console.log('|              |');
+          console.log(`|      ${this.puntuacionGlobal[i]}     |`)
+          console.log('|______________|');
+          console.log(`Frame: ${i + 1}`);
+        }
+        else {//tiros menores a 10 en el último frame
           console.log(' _________')
-          console.log(`|  ${this.tiro1[i]} | ${this.tiro2[i]}  |  ${this.tiroExtra1}`);
+          console.log(`|  ${this.tiro1[i]} | ${this.tiro2[i]}  |`);
           console.log('|____|____|');
           console.log('|         |');
-          console.log(`| ${this.puntuacionGlobal[i]} |`)
-          //this.puntuacionGlobal[i] <= 9 ? console.log(`|    ${this.puntuacionGlobal[i]}    |`) : console.log(`|    ${this.puntuacionGlobal[i]}   |`);
+          console.log(`|   ${this.puntuacionGlobal[i]}    |`);
           console.log('|_________|');
-        }
+          console.log(`Frame: ${i + 1}`);
+        }  
           
       }
 
